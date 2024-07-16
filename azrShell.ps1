@@ -16,7 +16,7 @@ function SelectShellType {
 }
 
 $results = $(docker ps -q --filter ancestor=mcr.microsoft.com/azure-cloudshell)
-If ($results -ne $null) {
+If ($null -ne $results) {
     Write-Host "container running..."
     Write-Host "connecting to container..."
     docker exec -it $results bash
@@ -36,5 +36,5 @@ Else {
     Write-Host
     Write-Host "___________________________________________________________"
     Write-Host
-    docker run -it -v ""${ScriptsLocation}':/usr/cloudshell/scripts'"" mcr.microsoft.com/azure-cloudshell $StartShellType
+    docker run -it -v "${ScriptsLocation}:/usr/cloudshell/scripts" mcr.microsoft.com/azure-cloudshell $StartShellType
 }
